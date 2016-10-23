@@ -15,7 +15,7 @@ public class HeapifyTest {
   public void testHeapify() throws IOException {
     AMHeap heap = new AMHeap();
 
-    heap.add(new RuleLoaderTest().testRuleLoading());
+    heap.add(new RuleLoaderTest().getRules());
 
     heap.heapify();
 
@@ -28,7 +28,7 @@ public class HeapifyTest {
   public void testDelete() throws IOException {
     AMHeap heap = new AMHeap();
 
-    heap.add(new RuleLoaderTest().testRuleLoading());
+    heap.add(new RuleLoaderTest().getRules());
 
     heap.heapify();
     heap.delete();
