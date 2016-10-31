@@ -3,7 +3,6 @@ package com.ruraj.agendamanager.queue;
 import com.ruraj.agendamanager.rule.Rule;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,9 +19,15 @@ public class AMHeap {
     this.ruleList.add(rule);
   }
 
-  public void delete() {
+  public Rule delete() {
+    Rule deleted = ruleList.get(0);
     ruleList.set(0, ruleList.get(ruleList.size() - 1));
     ruleList.remove(ruleList.size() -1 );
+    return deleted;
+  }
+
+  public List<Rule> asList() {
+    return ruleList;
   }
 
   public void heapify() {

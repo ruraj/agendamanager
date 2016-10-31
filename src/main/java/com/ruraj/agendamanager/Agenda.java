@@ -1,5 +1,6 @@
 package com.ruraj.agendamanager;
 
+import com.ruraj.agendamanager.listener.AgendaListener;
 import com.ruraj.agendamanager.queue.AMHeap;
 import com.ruraj.agendamanager.rule.Rule;
 
@@ -11,15 +12,30 @@ import java.util.List;
 public class Agenda {
 
   private AMHeap heap = new AMHeap();
+  private AgendaListener listener;
+
+  public void setAgendaListener(AgendaListener listener) {
+    this.listener = listener;
+  }
 
   public void add(List<Rule> rules) {
     heap.add(rules);
     heap.heapify();
+    if (listener != null) {
+      listener.onRuleAdded(rules, this);
+    }
   }
 
   public void delete() {
-    heap.delete();
+    Rule deletedRule = heap.delete();
     heap.heapify();
+    if (listener != null) {
+      listener.onRuleDeleted(deletedRule, this);
+    }
+  }
+
+  public List<Rule> remaining() {
+    return heap.asList();
   }
 
   public Rule cycle() {
@@ -28,12 +44,21 @@ public class Agenda {
 
     // If there aren't any
     if (topRule == null) {
-      System.out.println("Heap is empty");
+      if (listener != null) {
+        listener.onEmpty(this);
+      }
       return null;
     }
 
-    // Execute (Print) it
-    System.out.println(topRule);
+    if (listener != null) {
+      listener.onCycleBegin(topRule, this);
+    }
+
+    // Execute (Print) it. Ok, nothing right now
+
+    if (listener != null) {
+      listener.onCycleEnd(topRule, this);
+    }
 
     return topRule;
   }
