@@ -18,6 +18,6 @@ public class Rule {
 
   @Override
   public String toString() {
-    return name + "->" + priority;
+    return String.format("(%s,%s)", name, priority);
   }
 }

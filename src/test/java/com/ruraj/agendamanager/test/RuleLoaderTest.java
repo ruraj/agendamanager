@@ -14,7 +14,7 @@ import java.util.List;
  * Created by ruraj on 10/22/16.
  */
 public class RuleLoaderTest {
-  public List<Rule> getRules() throws IOException {
+  List<Rule> getRules() throws IOException {
     RuleLoader loader = new RuleLoader(getClass().getClassLoader().getResource("input.txt").getPath());
 
     List<Rule> rules = new ArrayList<>();
