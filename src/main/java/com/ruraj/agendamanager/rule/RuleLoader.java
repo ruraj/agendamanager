@@ -2,7 +2,6 @@ package com.ruraj.agendamanager.rule;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,7 +57,7 @@ public class RuleLoader {
       int priority = Integer.valueOf(things[1].trim());
 
       // Check if priority is between 1 and 100. Otherwise, ignore this rule.
-      if (priority < 1 || priority > 100) continue;
+//      if (priority < 1 || priority > 100) continue;
 
       rule = new Rule(
               things[0].trim(),
