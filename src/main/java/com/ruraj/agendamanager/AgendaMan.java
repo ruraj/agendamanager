@@ -37,7 +37,8 @@ public class AgendaMan {
 
       List<Rule> rules;
       int cycle = 0;
-      while ( (rules = ruleLoader.nextLine()) != null || cycle != MAX_CYCLES) {
+      while (cycle != MAX_CYCLES) {
+        rules = ruleLoader.nextLine();
         if (rules != null) {
           agenda.add(rules);
         }
