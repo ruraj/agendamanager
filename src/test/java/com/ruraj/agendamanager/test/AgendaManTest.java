@@ -7,8 +7,12 @@ import com.ruraj.agendamanager.rule.Rule;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,9 +26,14 @@ public class AgendaManTest implements AgendaListener {
 
   private int cycles = 0;
 
-  private String filePath(String name) throws URISyntaxException {
+  private String filePath(String name) throws URISyntaxException, IOException {
+    File temp = File.createTempFile("agendaman", "test");
+
+    Files.copy(classLoader.getResourceAsStream(name), temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
     return new URI(
-            classLoader.getResource(name).getPath()
+//            classLoader.getResource(name).getPath()
+            temp.getAbsolutePath()
     ).getPath();
   }
 
@@ -35,7 +44,7 @@ public class AgendaManTest implements AgendaListener {
   }
 
   private void testImpl(String file) {
-    System.out.println("Running on " + file);
+    System.out.println("\n\n************ Running on " + file);
     try {
       agendaMan.run(
               filePath("test/" + file),
@@ -44,6 +53,8 @@ public class AgendaManTest implements AgendaListener {
     } catch (URISyntaxException e) {
       e.printStackTrace();
       System.out.println("Continuing...");
+    } catch (IOException e) {
+      e.printStackTrace();
     }
     cycles = 0;
   }
